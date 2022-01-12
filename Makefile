@@ -1,5 +1,5 @@
 
-CC   := gcc
+CC   := g++
 CXX  := g++
 AR   := ar
 LD   := $(CXX)
@@ -56,7 +56,8 @@ ARCHFLAGS := $(ARCHFLAGS)
 
 OPTFLAGS  ?= -g -O
 
-CFLAGS    += -Wall -Wno-array-bounds -Wno-nonnull -Wno-maybe-uninitialized -Wno-format-overflow -Wno-unused-variable -Wno-unused-function -Wno-write-strings -Wno-sign-compare $(ARCHFLAGS)
+CFLAGS    += -Wall -Wno-array-bounds -Wno-nonnull -Wno-maybe-uninitialized -Wno-format-overflow -Wno-unused-variable -Wno-unused-function -Wno-write-strings -Wno-sign-compare -Wno-deprecated -Wno-c++11-narrowing -Wno-register -Wno-format -Wno-reserved-user-defined-literal $(ARCHFLAGS)
+
 ifneq ($(findstring arm,$(shell uname -m)),)
 	CFLAGS += -DABC_MEMALIGN=4
 endif

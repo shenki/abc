@@ -94,8 +94,6 @@
 ///                         PARAMETERS                               ///
 ////////////////////////////////////////////////////////////////////////
 
-ABC_NAMESPACE_HEADER_START
-
 ////////////////////////////////////////////////////////////////////////
 ///                         BASIC TYPES                              ///
 ////////////////////////////////////////////////////////////////////////
@@ -143,10 +141,7 @@ ABC_NAMESPACE_HEADER_START
 
 #endif
 
-#if     defined(__APPLE__)
-#include <stddef.h>
-#define ABC_USE_STDINT_H
-#endif
+ABC_NAMESPACE_HEADER_START
 
 /**
  * Pointer difference type; replacement for ptrdiff_t.

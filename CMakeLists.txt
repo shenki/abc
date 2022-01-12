@@ -47,12 +47,17 @@ if(ABC_USE_NAMESPACE)
     set(ABC_USE_NAMESPACE_FLAGS "ABC_USE_NAMESPACE=${ABC_USE_NAMESPACE}")
 endif()
 
+if(ABC_USE_STDINT_H)
+    set(ABC_USE_STDINT_H_FLAGS "ABC_USE_STDINT_H=${ABC_USE_STDINT_H}")
+endif()
+
 # run make to extract compiler options, linker options and list of source files
 execute_process(
   COMMAND
     make
         ${ABC_READLINE_FLAGS}
         ${ABC_USE_NAMESPACE_FLAGS}
+        ${ABC_USE_STDINT_H_FLAGS}
         ARCHFLAGS_EXE=${CMAKE_CURRENT_BINARY_DIR}/abc_arch_flags_program.exe
         ABC_MAKE_NO_DEPS=1
         CC=${CMAKE_C_COMPILER}
