@@ -490,7 +490,7 @@ static inline int Abc_PrimeCudd( unsigned int p )
 // the returned buffer has 32 unused bytes at the end, filled with zeros
 static inline void * Abc_FileReadContents( char * pFileName, int * pnFileSize )
 {
-    int RetValue, nFileSize;
+    int nFileSize;
     char * pBuffer;
     FILE * pFile = fopen( pFileName, "rb" );
     if ( pFile == NULL )

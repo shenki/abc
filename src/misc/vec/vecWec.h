@@ -828,7 +828,8 @@ static inline void Vec_WecDumpBin( char * pFileName, Vec_Wec_t * p, int fVerbose
 }
 static inline Vec_Wec_t * Vec_WecReadBin( char * pFileName, int fVerbose )
 {
-    Vec_Wec_t * p = NULL; Vec_Int_t * vLevel; int i, nSize;
+    Vec_Wec_t * p = NULL; Vec_Int_t * vLevel; int i, nSize, RetValue;
+    (void) RetValue; // suppress unused variable warnings when NDEBUG is defined.
     FILE * pFile = fopen( pFileName, "rb" );
     if ( pFile == NULL )
     {
@@ -850,13 +851,16 @@ static inline Vec_Wec_t * Vec_WecReadBin( char * pFileName, int fVerbose )
         return NULL;
     }
     rewind( pFile );
-    fread( &nSize, 1, sizeof(int), pFile );
+    RetValue = fread( &nSize, 1, sizeof(int), pFile );
+    assert(RetValue == 4);
     p = Vec_WecStart( nSize );
     Vec_WecForEachLevel( p, vLevel, i )
     {
-        fread( &nSize, 1, sizeof(int), pFile );
+        RetValue = fread( &nSize, 1, sizeof(int), pFile );
+        assert( RetValue == 4 );
         Vec_IntFill( vLevel, nSize, 0 );
-        fread( Vec_IntArray(vLevel), 1, sizeof(int)*nSize, pFile );
+        RetValue = fread( Vec_IntArray(vLevel), 1, sizeof(int)*nSize, pFile );
+        assert( RetValue == 4*nSize );
     }
     fclose( pFile );
     if ( fVerbose )

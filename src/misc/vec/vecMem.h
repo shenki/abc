@@ -409,6 +409,7 @@ static inline Vec_Mem_t * Vec_MemAllocForTTSimple( int nVars )
 static inline Vec_Mem_t * Vec_MemAllocForTT( int nVars, int fCompl )
 {
     int Value, nWords = (nVars <= 6 ? 1 : (1 << (nVars - 6)));
+    (void) Value; // suppress unused variable warnings when NDEBUG is defined.
     word * uTruth = ABC_ALLOC( word, nWords ); 
     Vec_Mem_t * vTtMem = Vec_MemAlloc( nWords, 12 );
     Vec_MemHashAlloc( vTtMem, 10000 );
@@ -425,6 +426,7 @@ static inline Vec_Mem_t * Vec_MemAllocForTT( int nVars, int fCompl )
 static inline void Vec_MemAddMuxTT( Vec_Mem_t * p, int nVars )
 {
     int Value, nWords = (nVars <= 6 ? 1 : (1 << (nVars - 6)));
+    (void) Value; // suppress unused variable warnings when NDEBUG is defined.
     word * uTruth = ABC_ALLOC( word, nWords ); 
     memset( uTruth, 0xCA, sizeof(word) * nWords );
     Value = Vec_MemHashInsert( p, uTruth ); assert( Value == 2 );
