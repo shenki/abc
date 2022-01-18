@@ -851,7 +851,13 @@ static inline Vec_Wec_t * Vec_WecReadBin( char * pFileName, int fVerbose )
     }
     rewind( pFile );
     RetValue = fread( &nSize, 1, sizeof(int), pFile );
-    assert( RetValue == 4 );
+    // replace assert( RetValue == 4 ); with unconditional test to
+    // avoid unused variable warning
+    if (RetValue != 4)
+    {
+        printf( "Input file read error.\n" );
+        return NULL;
+    }
     p = Vec_WecStart( nSize );
     Vec_WecForEachLevel( p, vLevel, i )
     {
