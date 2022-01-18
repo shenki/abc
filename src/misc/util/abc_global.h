@@ -503,9 +503,8 @@ static inline void * Abc_FileReadContents( char * pFileName, int * pnFileSize )
     rewind( pFile );
     // load the contents of the file into memory
     pBuffer = ABC_ALLOC( char, nFileSize + 32 );
-    RetValue = fread( pBuffer, 1, nFileSize, pFile );
+    fread( pBuffer, 1, nFileSize, pFile );
     memset( pBuffer + nFileSize, 0, 32 );
-    assert( RetValue == nFileSize );
     fclose( pFile );
     return (void *)pBuffer;
 }

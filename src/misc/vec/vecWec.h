@@ -828,7 +828,7 @@ static inline void Vec_WecDumpBin( char * pFileName, Vec_Wec_t * p, int fVerbose
 }
 static inline Vec_Wec_t * Vec_WecReadBin( char * pFileName, int fVerbose )
 {
-    Vec_Wec_t * p = NULL; Vec_Int_t * vLevel; int i, nSize, RetValue;
+    Vec_Wec_t * p = NULL; Vec_Int_t * vLevel; int i, nSize;
     FILE * pFile = fopen( pFileName, "rb" );
     if ( pFile == NULL )
     {
@@ -850,22 +850,13 @@ static inline Vec_Wec_t * Vec_WecReadBin( char * pFileName, int fVerbose )
         return NULL;
     }
     rewind( pFile );
-    RetValue = fread( &nSize, 1, sizeof(int), pFile );
-    // replace assert( RetValue == 4 ); with unconditional test to
-    // avoid unused variable warning
-    if (RetValue != 4)
-    {
-        printf( "Input file read error.\n" );
-        return NULL;
-    }
+    fread( &nSize, 1, sizeof(int), pFile );
     p = Vec_WecStart( nSize );
     Vec_WecForEachLevel( p, vLevel, i )
     {
-        RetValue = fread( &nSize, 1, sizeof(int), pFile );
-        assert( RetValue == 4 );
+        fread( &nSize, 1, sizeof(int), pFile );
         Vec_IntFill( vLevel, nSize, 0 );
-        RetValue = fread( Vec_IntArray(vLevel), 1, sizeof(int)*nSize, pFile );
-        assert( RetValue == 4*nSize );
+        fread( Vec_IntArray(vLevel), 1, sizeof(int)*nSize, pFile );
     }
     fclose( pFile );
     if ( fVerbose )
